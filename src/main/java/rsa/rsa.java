@@ -11,8 +11,12 @@ public class rsa {
         BigInteger d = key_generation.getD();
         BigInteger fi = key_generation.getFi();
         System.out.println("Public keys: (n, e): " + "(" + n + "," + e + ")");
-        System.out.println("Secret key: d: " + d + "    Verified: (e*d)mod(fi)=" + BigInteger.valueOf(e).multiply(d).mod(fi));
 
+        BigInteger check = BigInteger.valueOf(e).multiply(d).mod(fi);
+        if(check.equals(BigInteger.ONE))
+            System.out.println("Secret key: d: " + d + "    Verified: (e*d)mod(fi)=" + check);
+        else
+            return;
         System.out.println();
         System.out.println("Menu:\n1.Encyription\n2.Decription");
 
@@ -45,6 +49,8 @@ public class rsa {
                 System.out.println("Formula:(c^d)mod(n) => m: " + m);
                 System.out.println("Verified with the Formula:(m^e)mod(n) => c: " + fme.getRemainder(m, BigInteger.valueOf(e), n));
                 break;
+            default:
+                System.out.println("Wrong Input!");
         }
 
     }
